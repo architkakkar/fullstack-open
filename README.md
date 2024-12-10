@@ -46,8 +46,8 @@ Each folder corresponds to a part of the course and contains its related exercis
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/architkakkar/Fullstack-Open.git
-   cd Fullstack-Open
+   git clone https://github.com/architkakkar/fullstack-open.git
+   cd fullstack-open
    ```
 
 2. Navigate to the specific part you want to run:
