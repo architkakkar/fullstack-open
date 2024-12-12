@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 
 const StatisticLine = (props) => {
   return (
-    <p>
-      {props.text} {props.value} {props.unit}
-    </p>
+    <tr>
+      <td>{props.text}</td> 
+      <td>{props.value} {props.unit}</td>
+    </tr>
   );
 };
 
