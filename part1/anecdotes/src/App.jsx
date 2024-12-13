@@ -11,33 +11,30 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
-  
+
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(Array(anecdotes.length).fill(0));
-  
-  let maxVotes = 0, maxIndex = 0;
+
+  let maxVotes = 0,
+    maxIndex = 0;
 
   points.forEach((val, i) => {
     if (val > maxVotes) {
-      maxVotes = val
-      maxIndex = i
+      maxVotes = val;
+      maxIndex = i;
     }
   });
 
-  const getRandomAnecdote = () => {
-    const random = Math.floor(Math.random() * anecdotes.length);
-    // console.log(random);
-
-    setSelected(random);
-  };
+  const getRandomAnecdote = () =>
+    setSelected(Math.floor(Math.random() * anecdotes.length));
 
   const updateVotes = () => {
-    const copyPoints = [...points];
-    copyPoints[selected] += 1;
-    console.log("copyPoints", copyPoints);
-    
-    setPoints(copyPoints);
-  }
+    const newPoints = [...points];
+    newPoints[selected] += 1;
+    // console.log("newPoints", newPoints);
+
+    setPoints(newPoints);
+  };
 
   return (
     <div>
