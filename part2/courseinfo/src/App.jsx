@@ -4,6 +4,10 @@ const Header = ({ name }) => <h1>{name}</h1>;
 
 Header.propTypes = { name: PropTypes.string };
 
+const Total = ({ sum }) => <p>Number of exercises {sum}</p>
+
+Total.propTypes = { sum: PropTypes.number };
+
 const Part = ({ part }) => (
   <p>
     {part.name} {part.exercises}
@@ -17,7 +21,6 @@ const Content = ({ parts }) => (
     <Part part={parts[0]} />
     <Part part={parts[1]} />
     <Part part={parts[2]} />
-    <Part part={parts[3]} />
   </>
 );
 
@@ -28,6 +31,7 @@ const Course = ({ course }) => {
     <div>
       <Header name={course.name} />
       <Content parts={course.parts} />
+      <Total sum={course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises} />
     </div>
   );
 };
@@ -53,12 +57,7 @@ const App = () => {
         name: "State of a component",
         exercises: 14,
         id: 3,
-      },
-      {
-        name: "Using hooks",
-        exercises: 12,
-        id: 4,
-      },
+      }
     ],
   };
 
