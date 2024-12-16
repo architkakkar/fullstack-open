@@ -4,7 +4,11 @@ const Header = ({ name }) => <h1>{name}</h1>;
 
 Header.propTypes = { name: PropTypes.string };
 
-const Total = ({ sum }) => <p>Number of exercises {sum}</p>
+const Total = ({ sum }) => (
+  <p>
+    <strong>total of {sum} exercises</strong>
+  </p>
+);
 
 Total.propTypes = { sum: PropTypes.number };
 
@@ -18,20 +22,22 @@ Part.propTypes = { part: PropTypes.object };
 
 const Content = ({ parts }) => (
   <>
-    <Part part={parts[0]} />
-    <Part part={parts[1]} />
-    <Part part={parts[2]} />
+    {parts.map((part) => (
+      <Part key={part.id} part={part} />
+    ))}
   </>
 );
 
 Content.propTypes = { parts: PropTypes.array };
 
 const Course = ({ course }) => {
+  const sum = course.parts.reduce((result, part) => result + part.exercises, 0);
+
   return (
     <div>
       <Header name={course.name} />
       <Content parts={course.parts} />
-      <Total sum={course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises} />
+      <Total sum={sum} />
     </div>
   );
 };
@@ -57,7 +63,17 @@ const App = () => {
         name: "State of a component",
         exercises: 14,
         id: 3,
-      }
+      },
+      {
+        name: "Router",
+        exercises: 20,
+        id: 4,
+      },
+      {
+        name: "Redux",
+        exercises: 5,
+        id: 5,
+      },
     ],
   };
 
