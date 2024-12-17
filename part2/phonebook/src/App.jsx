@@ -7,12 +7,22 @@ const App = () => {
   const addName = (e) => {
     e.preventDefault();
 
+    const trimmedName = newName.trim();
+
     const newPerson = {
-      name: newName,
+      name: trimmedName,
     };
 
-    setPersons([...persons, newPerson]);
-    setNewName("");
+    const isDuplicate = persons.some(
+      (person) => person.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      alert(`${trimmedName} is already added to the phonebook`);
+    } else {
+      setPersons([...persons, newPerson]);
+      setNewName("");
+    }
   };
 
   return (
