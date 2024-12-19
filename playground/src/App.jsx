@@ -1,16 +1,24 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import Note from "./components/Note";
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes);
+const App = () => {
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note...");
   const [showAll, setShowAll] = useState(true);
 
-  const notesToShow = showAll
-    ? notes
-    : notes.filter((note) => note.important);
+  useEffect(() => {
+    console.log("effect");
+
+    axios.get("http://localhost:3001/notes").then((response) => {
+      console.log("promise fulfilled");
+      setNotes(response.data);
+    });
+  }, []);
+  console.log("render", notes.length, "notes");
+
+  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
 
   const addNote = (event) => {
     event.preventDefault();
@@ -36,7 +44,7 @@ const App = (props) => {
       <h1>Notes</h1>
       <div>
         <button onClick={() => setShowAll(!showAll)}>
-          show {showAll ? 'important' : 'all'}
+          show {showAll ? "important" : "all"}
         </button>
       </div>
       <ul>
@@ -50,10 +58,6 @@ const App = (props) => {
       </form>
     </div>
   );
-};
-
-App.propTypes = {
-  notes: PropTypes.array.isRequired,
 };
 
 export default App;
