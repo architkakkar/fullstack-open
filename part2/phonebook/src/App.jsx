@@ -27,12 +27,26 @@ const App = () => {
       number: newNumber,
     };
 
-    const isDuplicate = persons.some(
+    const duplicate = persons.find(
       (person) => person.name.toLowerCase() === trimmedName.toLowerCase()
     );
 
-    if (isDuplicate) {
-      alert(`${trimmedName} is already added to the phonebook`);
+    if (duplicate) {
+      const isConfirm = confirm(
+        `${trimmedName} is already added to the phonebook, replace the old number with a new one?`
+      );
+
+      if (isConfirm) {
+        phonebookServices
+          .update(duplicate.id, { ...newContact })
+          .then((returnedContact) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== duplicate.id ? person : returnedContact
+              )
+            );
+          });
+      }
     } else {
       phonebookServices.create(newContact).then((returnedContact) => {
         setPersons([...persons, returnedContact]);
