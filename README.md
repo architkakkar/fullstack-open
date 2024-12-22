@@ -22,7 +22,7 @@ The Full Stack Open course is provided by the University of Helsinki and focuses
 The repository is structured as follows:
 
 ```
-📂 fullstackopen
+📂 fullstack-open
 ├── 📂 part0  // Fundamentals of Web Apps
 ├── 📂 part1  // Introduction to React
 ├── 📂 part2  // Communicating with server
