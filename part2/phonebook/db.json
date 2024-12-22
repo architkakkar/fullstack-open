@@ -11,24 +11,14 @@
       "id": "2"
     },
     {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": "3"
-    },
-    {
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": "4"
     },
     {
-      "id": "14b3",
+      "id": "932f",
       "name": "Archit Kakkar",
       "number": "80034-29790"
-    },
-    {
-      "id": "486a",
-      "name": "Test Test",
-      "number": "12345-67890"
     }
   ]
 }
