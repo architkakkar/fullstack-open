@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import phonebookServices from "./services/phonebook";
 
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
@@ -12,8 +12,8 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
+    phonebookServices.getAll().then((initialContacts) => {
+      setPersons(initialContacts);
     });
   }, []);
 
@@ -22,7 +22,7 @@ const App = () => {
 
     const trimmedName = newName.trim();
 
-    const newPerson = {
+    const newContact = {
       name: trimmedName,
       number: newNumber,
     };
@@ -34,13 +34,11 @@ const App = () => {
     if (isDuplicate) {
       alert(`${trimmedName} is already added to the phonebook`);
     } else {
-      axios
-        .post("http://localhost:3001/persons", newPerson)
-        .then((response) => {
-          setPersons([...persons, response.data]);
-          setNewName("");
-          setNewNumber("");
-        });
+      phonebookServices.create(newContact).then((returnedContact) => {
+        setPersons([...persons, returnedContact]);
+        setNewName("");
+        setNewNumber("");
+      });
     }
   };
 
