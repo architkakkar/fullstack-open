@@ -1,10 +1,21 @@
 .success {
-    color: green;
-    background: rgb(190, 251, 199);
-    font-size: 20px;
-    border-style: solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
-    font-weight: 600;
-  }
+  color: green;
+  background: rgb(190, 251, 199);
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.error {
+  color: red;
+  background: rgb(251, 191, 190);
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}

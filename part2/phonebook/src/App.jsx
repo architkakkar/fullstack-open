@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [searchText, setSearchText] = useState("");
   const [notification, setNotification] = useState("");
+  const [notificationType, setNotificationType] = useState("");
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
@@ -49,27 +50,58 @@ const App = () => {
               )
             );
             setNotification(`${duplicate.name} number updated.`);
+            setNotificationType("success");
           });
       }
     } else {
       phonebookServices.create(newContact).then((returnedContact) => {
         setPersons([...persons, returnedContact]);
         setNotification(`Added ${newContact.name}`);
+        setNotificationType("success");
       });
     }
     setNewName("");
-      setNewNumber("");
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
+    setNewNumber("");
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
   };
 
   const filteredPerson = persons.filter((person) =>
     person.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const deletePerson = (name, id) => {
+    const isConfirmed = confirm(`Delete ${name} ?`);
+
+    if (isConfirmed) {
+      phonebookServices
+        .deleteContact(id)
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== id));
+          setNotification(`Deleted ${name}.`);
+          setNotificationType("success");
+        })
+        .catch(() => {
+          setPersons(persons.filter((p) => p.id !== id));
+          setNotification(
+            `Information of '${name}' has already been removed from server`
+          );
+          setNotificationType("error");
+        });
+    }
+
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
+      {showNotification ? (
+        <Notification message={notification} type={notificationType} />
+      ) : (
+        <></>
+      )}
       <Filter searchText={searchText} setSearchText={setSearchText} />
       <h2>add a new</h2>
       <PersonForm
@@ -79,9 +111,8 @@ const App = () => {
         number={newNumber}
         setNumber={setNewNumber}
       />
-      {showNotification ? <Notification message={notification} /> : ""}
       <h2>Numbers</h2>
-      <Persons persons={filteredPerson} setPersons={setPersons} />
+      <Persons persons={filteredPerson} onDelete={deletePerson} />
     </div>
   );
 };
