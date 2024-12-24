@@ -4,12 +4,15 @@ import phonebookServices from "./services/phonebook";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import Filter from "./components/Filter";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [notification, setNotification] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     phonebookServices.getAll().then((initialContacts) => {
@@ -45,15 +48,19 @@ const App = () => {
                 person.id !== duplicate.id ? person : returnedContact
               )
             );
+            setNotification(`${duplicate.name} number updated.`);
           });
       }
     } else {
       phonebookServices.create(newContact).then((returnedContact) => {
         setPersons([...persons, returnedContact]);
-        setNewName("");
-        setNewNumber("");
+        setNotification(`Added ${newContact.name}`);
       });
     }
+    setNewName("");
+      setNewNumber("");
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
   };
 
   const filteredPerson = persons.filter((person) =>
@@ -72,6 +79,7 @@ const App = () => {
         number={newNumber}
         setNumber={setNewNumber}
       />
+      {showNotification ? <Notification message={notification} /> : ""}
       <h2>Numbers</h2>
       <Persons persons={filteredPerson} setPersons={setPersons} />
     </div>
