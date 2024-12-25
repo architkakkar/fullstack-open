@@ -46,6 +46,9 @@ const App = () => {
       setShowList(true);
     } else if (countryListLength == 1) {
       getCountryData(filteredCountryList);
+    } else {
+      setMessage("No matches found, specify another filter");
+      setShowMessage(true);
     }
   };
 
@@ -73,8 +76,17 @@ const App = () => {
       <p>
         find countries: <input value={input} onChange={handleChange} />
       </p>
-      {showMessage ? message : <></>}
-      {showList ? filteredList.map((list) => <p key={list}>{list}</p>) : <></>}
+      {showMessage && input ? message : <></>}
+      {showList ? (
+        filteredList.map((name) => (
+          <p key={name}>
+            {`${name} `}
+            <button onClick={() => getCountryData(name)}>show</button>
+          </p>
+        ))
+      ) : (
+        <></>
+      )}
       {showCountryData ? <CountryData country={countryData} /> : <></>}
     </div>
   );
