@@ -58,17 +58,38 @@ const App = () => {
         `https://studies.cs.helsinki.fi/restcountries/api/name/${countryName}`
       )
       .then((response) => {
-        const data = response.data;
+        const countryData = response.data;
+        const weatherData = getWeatherData(countryData.capital[0]);
 
-        setCountryData({
-          name: data.name.common,
-          capital: data.capital[0],
-          area: data.area,
-          languages: data.languages,
-          flag: data.flag,
+        weatherData.then((wData) => {
+          const newObj = {
+            name: countryData.name.common,
+            capital: countryData.capital[0],
+            area: countryData.area,
+            languages: countryData.languages,
+            flag: countryData.flag,
+            weather: {
+              temperature: wData.current.temp_c,
+              icon: wData.current.condition.icon,
+              wind: wData.current.wind_mph,
+            },
+          };
+          setCountryData(newObj);
+          setShowCountryData(true);
         });
-        setShowCountryData(true);
+
       });
+  };
+
+  const getWeatherData = (capitalName) => {
+    const baseURL = "https://api.weatherapi.com/v1/current.json";
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
+    const weatherData = axios
+      .get(`${baseURL}?key=${apiKey}&q=${capitalName}`)
+      .then((response) => response.data);
+
+    return weatherData.then();
   };
 
   return (

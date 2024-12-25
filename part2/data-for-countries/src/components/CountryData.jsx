@@ -15,6 +15,10 @@ const CountryData = ({ country }) => {
         ))}
       </ul>
       <h1 style={{ fontSize: 48 }}>{country.flag}</h1>
+      <h2>Weather in {country.capital}</h2>
+      <p>Temperature: {country.weather.temperature} Celcius</p>
+      <img src={`https://${country.weather.icon}`} alt="weather-icon" />
+      <p>Wind: {country.weather.wind} mph</p>
     </div>
   );
 };
