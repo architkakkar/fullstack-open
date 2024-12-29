@@ -67,6 +67,22 @@ app.delete("/api/persons/:id", (request, response) => {
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: "name or number missing",
+    });
+  }
+
+  const duplicate = contacts.find(
+    (contact) => contact.name.toLowerCase() === body.name.toLowerCase()
+  );
+
+  if (duplicate) {
+    return response.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
   const newContact = {
     id: Math.floor(Math.random() * 999999),
     name: body.name,
