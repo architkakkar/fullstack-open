@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const contacts = [
+let contacts = [
   {
     id: "1",
     name: "Arto Hellas",
@@ -47,6 +47,18 @@ app.get("/api/persons/:id", (request, response) => {
     response.json(contact);
   } else {
     response.status(404).end();
+  }
+});
+
+app.delete("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  const contact = contacts.find((contact) => contact.id === id);
+
+  if (contact) {
+    contacts = contacts.filter((contact) => contact.id !== id);
+    response.status(204).end(); 
+  } else {
+    response.status(404).send({ error: `No contact exists with id: ${id}` });
   }
 });
 
