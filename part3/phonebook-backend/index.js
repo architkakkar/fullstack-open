@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 let contacts = [
   {
     id: "1",
@@ -56,10 +58,27 @@ app.delete("/api/persons/:id", (request, response) => {
 
   if (contact) {
     contacts = contacts.filter((contact) => contact.id !== id);
-    response.status(204).end(); 
+    response.status(204).end();
   } else {
     response.status(404).send({ error: `No contact exists with id: ${id}` });
   }
+});
+
+app.post("/api/persons", (request, response) => {
+  const body = request.body;
+
+  const newContact = {
+    id: Math.floor(Math.random() * 999999),
+    name: body.name,
+    number: body.number,
+  };
+
+  contacts = [...contacts, newContact];
+
+  response.status(201).json({
+    id: newContact.id,
+    message: "Created successfully.",
+  });
 });
 
 const PORT = 3001;
