@@ -1,7 +1,10 @@
 const express = require("express");
+const morgan = require("morgan");
+
 const app = express();
 
 app.use(express.json());
+app.use(morgan("tiny"));
 
 let contacts = [
   {
@@ -84,7 +87,7 @@ app.post("/api/persons", (request, response) => {
   }
 
   const newContact = {
-    id: Math.floor(Math.random() * 999999),
+    id: String(Math.floor(Math.random() * 999999)),
     name: body.name,
     number: body.number,
   };
