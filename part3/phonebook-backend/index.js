@@ -103,7 +103,7 @@ app.post("/api/persons", (request, response) => {
   response.status(201).json(newContact);
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server is live at http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
