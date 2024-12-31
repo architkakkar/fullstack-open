@@ -1,7 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 morgan.token("body", (request) => {
@@ -100,10 +102,7 @@ app.post("/api/persons", (request, response) => {
 
   contacts = [...contacts, newContact];
 
-  response.status(201).json({
-    id: newContact.id,
-    message: "Created successfully.",
-  });
+  response.status(201).json(newContact);
 });
 
 const PORT = 3001;

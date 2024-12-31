@@ -4,11 +4,20 @@ const PersonForm = ({ addContact, name, setName, number, setNumber }) => {
   return (
     <form onSubmit={addContact}>
       <div>
-        name: <input value={name} onChange={(e) => setName(e.target.value)} />
+        name:{" "}
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </div>
       <div>
         number:{" "}
-        <input value={number} onChange={(e) => setNumber(e.target.value)} />
+        <input
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+          required
+        />
       </div>
       <div>
         <button type="submit">add</button>
