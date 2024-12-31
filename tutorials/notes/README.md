@@ -1,1 +1,1 @@
-Project is live at http://fullstack-open-vs28.onrender.com/
+Project is live at https://fullstack-open-vs28.onrender.com/
