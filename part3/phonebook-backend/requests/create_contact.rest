@@ -5,3 +5,12 @@ Content-Type: application/json
     "name": "Archit Kakkar",
     "number": "80034-29790"
 }
+
+###
+POST https://phonebook-app-cxgo.onrender.com/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Archit Kakkar",
+    "number": "80034-29790"
+}
