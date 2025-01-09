@@ -18,7 +18,7 @@ switch (process.argv.length) {
     mongoose.set("strictQuery", false);
     mongoose.connect(url);
 
-    const personSchema = mongoose.Schema({
+    const personSchema = new mongoose.Schema({
       name: String,
       number: String,
     });
@@ -51,7 +51,7 @@ switch (process.argv.length) {
     mongoose.set("strictQuery", false);
     mongoose.connect(url);
 
-    const personSchema = mongoose.Schema({
+    const personSchema = new mongoose.Schema({
       name: String,
       number: String,
     });
