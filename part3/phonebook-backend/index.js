@@ -68,28 +68,17 @@ app.post("/api/persons", (request, response) => {
     });
   }
 
-  const duplicate = contacts.find(
-    (contact) => contact.name.toLowerCase() === body.name.toLowerCase()
-  );
-
-  if (duplicate) {
-    return response.status(400).json({
-      error: "name must be unique",
-    });
-  }
-
-  const newContact = {
-    id: String(Math.floor(Math.random() * 999999)),
+  const person = new Person({
     name: body.name,
     number: body.number,
-  };
+  });
 
-  contacts = [...contacts, newContact];
-
-  response.status(201).json(newContact);
+  person.save().then((savedPerson) => {
+    response.status(201).json(savedPerson);
+  });
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
