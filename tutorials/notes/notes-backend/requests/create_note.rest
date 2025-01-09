@@ -2,6 +2,6 @@ POST http://localhost:3000/api/notes
 Content-Type: application/json
 
 {
-    "content": "Postman is good at testing backend applications.",
+    "content": "Using mongoose for mongodb makes life easy.",
     "important": true
 }

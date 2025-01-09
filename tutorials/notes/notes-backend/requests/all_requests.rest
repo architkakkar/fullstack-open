@@ -3,6 +3,11 @@ GET http://localhost:3000/api/notes/ HTTP/1.1
 
 ###
 
+# This is a GET request to get a specific note based on its id.
+GET http://localhost:3000/api/notes/677d7b332f915254534ea2db
+
+###
+
 # This is a POST request to create new note.
 POST http://localhost:3000/api/notes/ HTTP/1.1
 content-type: application/json
