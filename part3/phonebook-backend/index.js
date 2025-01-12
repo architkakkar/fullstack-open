@@ -28,7 +28,7 @@ app.get("/api/persons", (request, response) => {
   });
 });
 
-app.get("/info", (request, response) => {
+app.get("/info", (request, response, next) => {
   Person.countDocuments()
     .then((noOfRecords) => {
       response.send(`
@@ -36,9 +36,7 @@ app.get("/info", (request, response) => {
         <p>${new Date()}</p>
       `);
     })
-    .catch((error) => {
-      response.status(500).send("Error retrieving document info");
-    });
+    .catch((error) => next(error));
 });
 
 app.get("/api/persons/:id", (request, response) => {
@@ -52,17 +50,14 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
-app.delete("/api/persons/:id", (request, response) => {
+app.delete("/api/persons/:id", (request, response, next) => {
   const id = request.params.id;
 
   Person.findByIdAndDelete(id)
     .then((result) => {
       response.status(204).end();
     })
-    .catch((error) => {
-      console.log(error.message);
-      response.status(400).send({ error: "invalid id." });
-    });
+    .catch((error) => next(error));
 });
 
 app.post("/api/persons", (request, response) => {
@@ -88,3 +83,16 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformatted id." });
+  } else if (error.status === 500) {
+    return response.status(500).send({ error: "internal server error" });
+  }
+
+  next(error);
+};
+app.use(errorHandler);
