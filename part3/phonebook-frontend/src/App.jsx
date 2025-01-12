@@ -49,16 +49,22 @@ const App = () => {
                 person.id !== duplicate.id ? person : returnedContact
               )
             );
-            setNotification(`${duplicate.name} number updated.`);
             setNotificationType("success");
+            setNotification(`${duplicate.name} number updated.`);
           });
       }
     } else {
-      phonebookServices.create(newContact).then((returnedContact) => {
-        setPersons([...persons, returnedContact]);
-        setNotification(`Added ${newContact.name}`);
-        setNotificationType("success");
-      });
+      phonebookServices
+        .create(newContact)
+        .then((returnedContact) => {
+          setPersons([...persons, returnedContact]);
+          setNotificationType("success");
+          setNotification(`Added ${newContact.name}`);
+        })
+        .catch((error) => {
+          setNotificationType("error");
+          setNotification(error.response.data.error);
+        });
     }
     setNewName("");
     setNewNumber("");
@@ -78,15 +84,15 @@ const App = () => {
         .deleteContact(id)
         .then(() => {
           setPersons(persons.filter((p) => p.id !== id));
-          setNotification(`Deleted ${name}.`);
           setNotificationType("success");
+          setNotification(`Deleted ${name}.`);
         })
         .catch(() => {
           setPersons(persons.filter((p) => p.id !== id));
+          setNotificationType("error");
           setNotification(
             `Information of '${name}' has already been removed from server`
           );
-          setNotificationType("error");
         });
     }
 
