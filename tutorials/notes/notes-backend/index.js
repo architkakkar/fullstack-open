@@ -4,8 +4,6 @@ const cors = require("cors");
 
 const Note = require("./models/note");
 
-let notes = [];
-
 const app = express();
 
 const requestLogger = (request, response, next) => {
@@ -49,7 +47,7 @@ app.delete("/api/notes/:id", (request, response, next) => {
   const id = request.params.id;
 
   Note.findByIdAndDelete(id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end();
     })
     .catch((error) => next(error));
