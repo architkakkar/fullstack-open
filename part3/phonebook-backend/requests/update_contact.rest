@@ -1,0 +1,17 @@
+PUT http://localhost:3001/api/persons/6783a15558c848026fb69eab
+Content-Type: application/json
+
+{
+    "name": "Archit Kakkar",
+    "number": "12345-67890"
+}
+
+###
+
+POST https://phonebook-app-cxgo.onrender.com/api/persons/6783a15558c848026fb69eab
+Content-Type: application/json
+
+{
+    "name": "Archit Kakkar",
+    "number": "12345-67890"
+}
