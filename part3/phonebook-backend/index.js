@@ -16,8 +16,6 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 
-let contacts = [];
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World</<h1>");
 });
@@ -57,7 +55,7 @@ app.delete("/api/persons/:id", (request, response, next) => {
   const id = request.params.id;
 
   Person.findByIdAndDelete(id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end();
     })
     .catch((error) => next(error));
