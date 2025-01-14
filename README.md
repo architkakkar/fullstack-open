@@ -26,7 +26,7 @@ The repository is structured as follows:
 ├── 📂 part0  // Fundamentals of Web Apps
 ├── 📂 part1  // Introduction to React
 ├── 📂 part2  // Communicating with server
-├── 📂 part3  // Node.js and Express
+├── 📂 part3  // Node.js, Express and MongoDB
 ├── 📂 part4  // Testing backend
 ├── 📂 part5  // Testing frontend
 ├── 📂 part6  // State management with Redux
@@ -36,8 +36,9 @@ The repository is structured as follows:
 ├── 📂 part10 // React Native
 ├── 📂 part11 // DevOps: CI/CD
 ├── 📂 part12 // Containers and Deployment
-└── 📂 part13 // Using Relational Databases
-└── 📂 playground // React Playground for practice
+├── 📂 part13 // Using Relational Databases
+├── 📂 playground // React & Node Playground
+└── 📂 tutorials // Projects created as part of course curriculum 
 ```
 
 Each folder corresponds to a part of the course and contains its related exercises and projects.
