@@ -38,7 +38,7 @@ The repository is structured as follows:
 ├── 📂 part12 // Containers and Deployment
 ├── 📂 part13 // Using Relational Databases
 ├── 📂 playground // React & Node Playground
-└── 📂 tutorials // Projects created as part of course curriculum 
+└── 📂 tutorials // Projects created as part of course curriculum
 ```
 
 Each folder corresponds to a part of the course and contains its related exercises and projects.
@@ -46,27 +46,32 @@ Each folder corresponds to a part of the course and contains its related exercis
 ## How to Run
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/architkakkar/fullstack-open.git
    cd fullstack-open
    ```
 
 2. Navigate to the specific part you want to run:
+
    ```bash
    cd partX
    ```
 
 3. Install dependencies:
+
    ```bash
    npm install
    ```
 
 4. Start the development server (for frontend projects using Vite):
+
    ```bash
    npm run dev
    ```
 
 5. For backend projects, start the server:
+
    ```bash
    node server.js
    ```
@@ -81,7 +86,7 @@ Each folder corresponds to a part of the course and contains its related exercis
 - **Testing**: Jest, Cypress
 - **State Management**: Redux, React Context
 - **API**: RESTful APIs, GraphQL
-- **DevOps**: CI/CD pipelines, Docker containers
+- **DevOps**: CI/CD pipelines, Docker Containers, Kubernetes
 
 ## Learning Outcomes
 
@@ -102,4 +107,3 @@ Special thanks to the University of Helsinki and the Full Stack Open team for pr
 ---
 
 Feel free to explore and contribute!
-
