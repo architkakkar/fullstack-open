@@ -1,11 +1,13 @@
-const config = require("./utils/config");
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const notesRouter = require("./controllers/notes");
-const middleware = require("./utils/middleware");
-const logger = require("./utils/logger");
 const mongoose = require("mongoose");
+const config = require("./utils/config");
+const logger = require("./utils/logger");
+const middleware = require("./utils/middleware");
+
+const notesRouter = require("./controllers/notes");
+
+const app = express();
 
 mongoose.set("strictQuery", false);
 
