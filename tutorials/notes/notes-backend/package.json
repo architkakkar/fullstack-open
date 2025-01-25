@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "node --test",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "cross-env  NODE_ENV=test node --test",
     "build:ui": "rm -rf dist && cd ../notes-frontend && npm run build && cp -r dist ../notes-backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "lint": "eslint .",
@@ -16,6 +16,7 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.9.3"
