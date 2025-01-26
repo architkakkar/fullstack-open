@@ -37,7 +37,8 @@ describe("note api", () => {
       .expect("Content-Type", /application\/json/);
   });
 
-  test("there are two notes", async () => {
+  // `npm test -- --test-only` can be used to run selected test with only() function
+  test.only("there are two notes", async () => {
     const response = await api.get("/api/notes");
 
     assert.strictEqual(response.body.length, initialNotes.length);
