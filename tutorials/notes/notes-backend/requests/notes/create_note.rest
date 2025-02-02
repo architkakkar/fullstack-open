@@ -1,8 +1,8 @@
 POST http://localhost:3000/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3R1c2VyIiwiaWQiOiI2NzlmZDkxMjZhYWMxMDUxYzI3MTIzMjkiLCJpYXQiOjE3Mzg1MjkxNTF9.2HCKK6t6EnlPCOEGtKorM1xa5KLB9ryrD-oxFKYPHT4
 
 {
-    "content": "user id sent along with the note.",
-    "important": true,
-    "userId": "679aa0fa6a7f79ca81ae45a7"
+    "content": "using JSON web tokens is easy.",
+    "important": true
 }

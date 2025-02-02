@@ -3,9 +3,20 @@
  * `express-async-errors` library handles everything under the hood
  * if error occurs, the execution is automatically passed to error-handling middleware
  */
+const jwt = require("jsonwebtoken");
 const notesRouter = require("express").Router();
 const Note = require("../models/note");
 const User = require("../models/user");
+
+const getTokenFrom = (request) => {
+  const authorization = request.get("authorization");
+
+  if (authorization && authorization.startsWith("Bearer ")) {
+    return authorization.replace("Bearer ", "");
+  }
+
+  return null;
+};
 
 notesRouter.get("/", async (request, response) => {
   const notes = await Note.find({}).populate("user", { username: 1, name: 1 });
@@ -23,12 +34,14 @@ notesRouter.get("/:id", async (request, response) => {
 });
 
 notesRouter.post("/", async (request, response) => {
-  const { content, important, userId } = request.body;
+  const { content, important } = request.body;
 
-  const user = await User.findById(userId);
-  if (!user) {
-    return response.status(404).json({ error: "user not found" });
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: "token invalid" });
   }
+
+  const user = await User.findById(decodedToken.id);
 
   const note = new Note({
     content,
@@ -38,6 +51,7 @@ notesRouter.post("/", async (request, response) => {
 
   const savedNote = await note.save();
   user.notes = [...user.notes, savedNote.id];
+
   await user.save();
 
   response.status(201).json(savedNote);
