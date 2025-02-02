@@ -1,18 +1,41 @@
-const { test, after, beforeEach, describe } = require("node:test");
+const { test, after, beforeEach, afterEach, describe } = require("node:test");
 const assert = require("node:assert");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
+const bcrypt = require("bcrypt");
 
 const app = require("../app");
 const helper = require("./test_helper");
 const Note = require("../models/note");
+const User = require("../models/user");
 
 const api = supertest(app);
 
 describe("when there are some notes saved initially", () => {
   beforeEach(async () => {
     await Note.deleteMany({});
-    await Note.insertMany(helper.initialNotes);
+    await User.deleteMany({});
+
+    const passwordHash = await bcrypt.hash("Test@123", 10);
+    const user = new User({
+      username: "testuser",
+      name: "Test User",
+      passwordHash,
+    });
+
+    await user.save();
+
+    const notes = helper.initialNotes.map((note) => ({
+      ...note,
+      user: user.id,
+    }));
+
+    await Note.insertMany(notes);
+  });
+
+  afterEach(async () => {
+    await User.deleteMany({});
+    await Note.deleteMany({});
   });
 
   test("notes are returned as json", async () => {
@@ -42,7 +65,6 @@ describe("when there are some notes saved initially", () => {
   describe("viewing a specific note", () => {
     test("succeeds with a valid id", async () => {
       const notesAtStart = await helper.notesInDb();
-
       const noteToView = notesAtStart[0];
 
       const resultNote = await api
@@ -68,9 +90,13 @@ describe("when there are some notes saved initially", () => {
 
   describe("addition of a new note", () => {
     test("succeeds with valid data", async () => {
+      const userAtStart = await helper.usersInDb();
+      const userId = userAtStart[0].id;
+
       const newNote = {
         content: "async/await simplifies making async calls",
         important: true,
+        userId,
       };
 
       await api
@@ -86,12 +112,12 @@ describe("when there are some notes saved initially", () => {
       assert(contents.includes("async/await simplifies making async calls"));
     });
 
-    test("fails with status code 400 if data invalid", async () => {
+    test("fails with status code 404 if data invalid", async () => {
       const newNote = {
         important: true,
       };
 
-      await api.post("/api/notes").send(newNote).expect(400);
+      await api.post("/api/notes").send(newNote).expect(404);
 
       const notesAtEnd = await helper.notesInDb();
 
