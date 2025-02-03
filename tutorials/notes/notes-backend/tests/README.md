@@ -28,3 +28,8 @@ npm test -- --test-name-pattern="there are two notes"
 ```bash
 npm test -- --test-name-pattern="notes"
 ```
+
+## Test Concurrency
+The `--test-concurrency=1` option ensures that tests are run sequentially, one at a time, rather than concurrently. This can be useful in scenarios where tests might interfere with each other if run in parallel.
+```bash
+npm test -- --test-concurrency=1
