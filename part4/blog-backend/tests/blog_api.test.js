@@ -123,9 +123,9 @@ test("blog details can be updated", async () => {
 
   assert.strictEqual(response.body.likes, 20);
 
-  const blogAEnd = await helper.blogsInDb();
-  const updatedBlogFromDb = blogsAtEnd.find(
-    (blog) => blog.id === blogToDelete.id
+  const blogAtEnd = await helper.blogsInDb();
+  const updatedBlogFromDb = blogAtEnd.find(
+    (blog) => blog.id === blogToUpdate.id
   );
 
   assert.equal(updatedBlogFromDb.likes, 20);
