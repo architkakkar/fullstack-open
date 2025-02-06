@@ -1,9 +1,10 @@
-POST http://localhost:3000/api/blogs
+POST http://localhost:3000/api/blogs/
 Content-Type: application/json
 
 {
-    "title": "First Blog",
-    "author": "Archit Kakkar",
-    "url": "url here",
-    "likes": "7"
+    "title": "Fullstack Open",
+    "author": "Matti Luukkainen",
+    "url": "https://fullstackopen.com/en",
+    "likes": "100000",
+    "userId": "67a4e0fe1a8c37bf1cf4b72a"
 }
