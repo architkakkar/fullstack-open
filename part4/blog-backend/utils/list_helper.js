@@ -44,9 +44,26 @@ const mostBlogs = (blogs) => {
   return authorWithMostBlogs;
 };
 
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) {
+    return null;
+  }
+
+  const groupedByAuthor = _.groupBy(blogs, "author");
+  const authorLikeCounts = _.map(groupedByAuthor, (blogs, author) => ({
+    author,
+    likes: _.sumBy(blogs, "likes"),
+  }));
+
+  const authorWithMostLikes = _.maxBy(authorLikeCounts, "likes");
+
+  return authorWithMostLikes;
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };

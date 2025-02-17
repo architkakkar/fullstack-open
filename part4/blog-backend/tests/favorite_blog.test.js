@@ -92,6 +92,21 @@ describe("favorite blog", () => {
 
   test("to find most blogs by author is returned right", () => {
     const result = listHelper.mostBlogs(listWithManyBlogs);
-    console.log(result);
+    const expected = {
+      author: "Robert C. Martin",
+      blogs: 3,
+    };
+
+    assert.deepStrictEqual(result, expected);
+  });
+
+  test("to find most likes by author is returned right", () => {
+    const result = listHelper.mostLikes(listWithManyBlogs);
+    const expected = {
+      author: "Edsger W. Dijkstra",
+      likes: 17,
+    };
+
+    assert.deepStrictEqual(result, expected);
   });
 });
