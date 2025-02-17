@@ -89,4 +89,9 @@ describe("favorite blog", () => {
 
     assert.deepStrictEqual(result, favBlog);
   });
+
+  test("to find most blogs by author is returned right", () => {
+    const result = listHelper.mostBlogs(listWithManyBlogs);
+    console.log(result);
+  });
 });
