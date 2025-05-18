@@ -1,0 +1,9 @@
+PUT http://localhost:3000/api/blogs/678c09a611847bbe7a5a9c7c
+Content-Type: application/json
+
+{
+    "title": "Testing RESTful API",
+    "author": "Ada Lovelace",
+    "url": "https://www.google.com",
+    "likes": 32
+}
