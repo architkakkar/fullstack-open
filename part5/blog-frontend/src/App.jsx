@@ -18,12 +18,10 @@ const App = () => {
     }
   }, []);
 
-  const onLogin = (user, status) => {
-    if (status === "success") {
-      setUser(user);
-      loginService.setToken(user.token);
-      localStorage.setItem("loggedInUser", JSON.stringify(user));
-    }
+  const onLogin = (user) => {
+    setUser(user);
+    loginService.setToken(user.token);
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
   };
 
   const onLogout = () => {

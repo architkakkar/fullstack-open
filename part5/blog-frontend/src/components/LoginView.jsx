@@ -1,16 +1,16 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import loginService from "../services/login";
+import Notification from "./Notification";
 
-const LOGIN_STATUS = {
-  SUCCESS: "success",
-  FAILURE: "failure ",
-};
+import loginService from "../services/login";
+import { STATUS } from "../constants/contants";
 
 const LoginView = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -19,16 +19,22 @@ const LoginView = ({ onLogin }) => {
       const user = await loginService.login({ username, password });
       setUsername("");
       setPassword("");
-      onLogin(user, LOGIN_STATUS.SUCCESS);
+      onLogin(user);
     } catch (error) {
       console.error("Error while logging in:", error);
-      onLogin(null, LOGIN_STATUS.FAILURE);
+      setMessage("wrong username or password");
+      setMessageType(STATUS.FAILURE);
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
     }
   };
 
   return (
     <form onSubmit={handleLogin}>
       <h2>log in to application</h2>
+      {message && <Notification message={message} type={messageType} />}
       <div>
         <label htmlFor="username">username: </label>
         <input
